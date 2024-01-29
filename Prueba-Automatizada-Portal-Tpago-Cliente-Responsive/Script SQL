@@ -1,0 +1,38 @@
+
+# Asegúrate de tener el script SQL listo con las instrucciones que necesitas ejecutar.
+TEST002 primeramente debemos de corroborar si el usuario y id existen, en caso de que si existan debemos de eliminar:
+
+BD: 10.100.14.48
+
+select * from auth_service_production.user_credentials uc where email like '%miguelesquivel170@gmail.com%' -- copiamos el user_id y eliminamos
+
+select * from auth_service_production.users u where id in (1000001020); -- copiamos el user_id y eliminamos
+
+Para correr el TEST004-005-006 primeramente debemos de corroborar si las tarjetas fueron eliminadas, en caso de que no solo debemos remplazar el valor 0 a 1 en  el campo deleted:
+
+BD: 10.100.14.22
+
+-- Tarjeta de credito --
+
+select * from payment_link_service_production.user_cards where account_number= '620519490';  -- VISA -- 4338281585293070
+
+select * from payment_link_service_production.user_cards where account_number= '260044368';  -- MC   -- 5418634311324553
+
+select * from payment_link_service_production.user_cards where account_number= '202507615';  -- AMX  -- 375169001500495
+
+-- Tarjeta de debito --
+
+select * from payment_link_service_production.user_cards where account_number= '901090691';  -- ITAU DEBITO     --5421169010906918
+
+select * from payment_link_service_production.user_cards where account_number= '2900150';    -- VISION DEBITO   --60069100029001500
+
+select * from payment_link_service_production.user_cards where account_number= '700130956';  -- FAMILIAR DEBITO --4998317001309560
+
+-- tarjeta internacional --
+
+select credit_card_brand,a.* from payment_link_service_production.user_cards a where credit_card_masked_number in
+(
+'340000*****3961',
+'520000******0007',
+'497011******0062'
+);
